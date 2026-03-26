@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/datafeed/:path*",
+      "destination": "https://datafeed.dukascopy.com/datafeed/:path*"
+    }
+  ]
+}
