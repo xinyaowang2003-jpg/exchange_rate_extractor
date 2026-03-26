@@ -62,7 +62,7 @@ export default function App() {
 
   // The earliest valid End value is always start + 1 minute
   const endMin = useMemo(() => addOneMinute(startVal.date, startVal.time), [startVal]);
-  const [selected, setSelected] = useState(new Set(INSTRUMENTS));
+  const [selected, setSelected] = useState(new Set());
 
   const [running,   setRunning]   = useState(false);
   const [pct,       setPct]       = useState(0);
