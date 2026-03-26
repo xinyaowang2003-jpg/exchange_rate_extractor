@@ -1,33 +1,85 @@
+/* ─── Scroll Picker — Apple iOS drum-roller, Bloomberg Mono ─────────────── */
+
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .label {
-  font-size: 0.68rem;
-  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
   white-space: nowrap;
 }
 
-.picker {
-  width: 58px;
+/* Outer frame — the "drum" housing */
+.pickerFrame {
+  position: relative;
+  width: 64px;
   height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* Scrollable drum inside the frame */
+.picker {
+  width: 100%;
+  height: 100%;
   overflow-y: scroll;
-  border: 1px solid var(--border-dim);
-  border-radius: 8px;
-  background: var(--bg-overlay);
   scroll-snap-type: y mandatory;
   scrollbar-width: none;
   cursor: pointer;
+  background: transparent;
   position: relative;
+  z-index: 1;
+  /* Softer fade — items dissolve gently toward edges */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.15) 14%,
+    black 34%,
+    black 66%,
+    rgba(0,0,0,0.15) 86%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.15) 14%,
+    black 34%,
+    black 66%,
+    rgba(0,0,0,0.15) 86%,
+    transparent 100%
+  );
 }
 
 .picker::-webkit-scrollbar {
   display: none;
+}
+
+/* Pill selection band — inset from edges so it reads as a floating highlight */
+.selectionBand {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  right: 5px;
+  height: 38px;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  background: rgba(0, 122, 255, 0.07);
+  border: 1px solid rgba(0, 122, 255, 0.16);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .pad {
@@ -40,20 +92,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 0.94rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
   scroll-snap-align: center;
-  color: var(--text-dim);
-  transition: color 0.15s, background 0.15s;
+  color: var(--text-secondary);
   user-select: none;
-  border-radius: 6px;
+  transition: color 0.12s ease;
+  -webkit-font-smoothing: antialiased;
 }
 
 .item:hover {
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .selected {
-  color: var(--gold-hi) !important;
-  background: var(--gold-surface);
+  color: var(--accent-mid) !important;
+  font-weight: 600;
 }

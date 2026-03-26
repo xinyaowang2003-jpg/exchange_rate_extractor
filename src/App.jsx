@@ -37,9 +37,31 @@ function countWeekdays(start, end) {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+/** Advance a date+time by exactly 1 minute, rolling over into the next day if needed. */
+function addOneMinute(date, time) {
+  const h = parseInt(time.slice(0, 2), 10);
+  const m = parseInt(time.slice(3, 5), 10);
+  const totalMin = h * 60 + m + 1;
+  if (totalMin >= 24 * 60) {
+    // Roll over to next calendar day
+    const d = new Date(date + "T00:00:00Z");
+    d.setUTCDate(d.getUTCDate() + 1);
+    return { date: d.toISOString().slice(0, 10), time: "00:00" };
+  }
+  const newH = Math.floor(totalMin / 60);
+  const newM = totalMin % 60;
+  return {
+    date,
+    time: `${String(newH).padStart(2, "0")}:${String(newM).padStart(2, "0")}`,
+  };
+}
+
 export default function App() {
   const [startVal, setStartVal] = useState(defaultStart);
   const [endVal,   setEndVal]   = useState(defaultEnd);
+
+  // The earliest valid End value is always start + 1 minute
+  const endMin = useMemo(() => addOneMinute(startVal.date, startVal.time), [startVal]);
   const [selected, setSelected] = useState(new Set(INSTRUMENTS));
 
   const [running,   setRunning]   = useState(false);
@@ -81,7 +103,7 @@ export default function App() {
     const endDate    = rawEndDate > now ? now : rawEndDate;
 
     if (startDate >= endDate) {
-      setValidationError("Start date must be before end date.");
+      setValidationError("End date must be at least 1 minute after start date.");
       return;
     }
 
@@ -183,16 +205,23 @@ export default function App() {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>FX Data Extraction</h1>
-      <p className={styles.subtitle}>
-        Dukascopy · 1-min OHLCV · 24 USD pairs · 2021–present
-      </p>
+      <header className={styles.header}>
+        <h1 className={styles.title}>USD Exchange Rate Downloader</h1>
+        <p className={styles.subtitle}>
+          Pick a date range and currency pairs below. We fetch 1-minute bid candles
+          straight from Dukascopy and deliver a ZIP of CSVs — one file per pair,
+          no account or API key needed.
+        </p>
+        <p className={styles.meta}>
+          24 pairs · 1-min OHLCV (open, high, low, close, volume) · Jan 2021 – present
+        </p>
+      </header>
 
       <section className={styles.card}>
         <h2 className={styles.cardTitle}>Date &amp; Time Range</h2>
         <div className={styles.dateRow}>
           <DatePicker label="Start" value={startVal} onChange={setStartVal} maxDate={PAGE_LOAD_DATE} maxTime={PAGE_LOAD_TIME} />
-          <DatePicker label="End"   value={endVal}   onChange={setEndVal}   maxDate={PAGE_LOAD_DATE} maxTime={PAGE_LOAD_TIME} />
+          <DatePicker label="End"   value={endVal}   onChange={setEndVal}   maxDate={PAGE_LOAD_DATE} maxTime={PAGE_LOAD_TIME} minDate={endMin.date} minTime={endMin.time} />
         </div>
       </section>
 
@@ -203,12 +232,6 @@ export default function App() {
         </h2>
         <InstrumentGrid selected={selected} onChange={setSelected} />
       </section>
-
-      {estimate && (
-        <p className={styles.estimate}>
-          {estimate.pairs} pair{estimate.pairs !== 1 ? "s" : ""} × {estimate.days.toLocaleString()} day{estimate.days !== 1 ? "s" : ""} = {estimate.requests.toLocaleString()} requests
-        </p>
-      )}
 
       {validationError && (
         <p className={styles.validationError} role="alert">{validationError}</p>

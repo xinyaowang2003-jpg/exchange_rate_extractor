@@ -1,24 +1,35 @@
+/* ─── Instrument Grid — Bloomberg field identifiers ─────────────────────── */
+
 .toolbar {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: var(--sp-2);             /* 8px between select/deselect */
+  margin-bottom: var(--sp-4);   /* 16px — generous gap before the grid */
 }
 
 .smallBtn {
-  padding: 0 14px;
-  min-height: 32px;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  border: 1px solid var(--border-dim);
-  background: var(--bg-raised);
-  color: var(--text-primary);
+  padding: 0 var(--sp-3);
+  min-height: 30px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 5px;
+  /* Stronger border than any static element — unambiguous interactive affordance */
+  border: 1.5px solid var(--border-dim);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition: background 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s;
+  -webkit-font-smoothing: antialiased;
 }
 
 .smallBtn:hover {
-  background: var(--accent-lo);
-  border-color: var(--accent-hi);
+  background: var(--accent-surface);
+  border-color: var(--accent-mid);
+  color: var(--accent-mid);
+  /* Micro-shadow on hover: static elements never get this */
+  box-shadow: 0 1px 4px rgba(0, 122, 255, 0.12);
 }
 
 .smallBtn:focus-visible {
@@ -26,49 +37,72 @@
   outline-offset: 2px;
 }
 
+/* ── Chip grid — consistent 7px gap for tight data-grid rhythm ────────────── */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
+  gap: 7px;
 }
 
+/* Each chip: Bloomberg-style ticker row */
 .chip {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-  background: var(--bg-base);
+  gap: 6px;
+  padding: 7px var(--sp-3);
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-family: 'IBM Plex Mono', 'Fira Code', monospace;
-  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   font-weight: 500;
+  letter-spacing: 0.02em;
   color: var(--text-secondary);
-  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  transition: border-color 0.1s, color 0.1s, box-shadow 0.1s;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 .chip:hover {
-  border-color: var(--accent-hi);
+  border-color: var(--border-dim);
   color: var(--text-primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
-.chip:focus-within {
+.chip:focus-visible {
   outline: 2px solid var(--accent-hi);
   outline-offset: 1px;
 }
 
+/* Selected — border + text only, no fill */
 .checked {
-  border-color: var(--gold-mid);
-  background: var(--gold-surface);
-  color: var(--gold-hi);
+  border-color: var(--accent-mid);
+  color: var(--accent-mid);
+  background: var(--bg-surface);
 }
 
+.checked:hover {
+  border-color: var(--accent-lo);
+  color: var(--accent-lo);
+  box-shadow: 0 1px 4px rgba(0, 122, 255, 0.08);
+}
+
+/* Hide native checkbox, keep it for keyboard/screen-reader access */
 .chip input[type="checkbox"] {
-  accent-color: var(--gold-mid);
-  width: 14px;
-  height: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border-dim);
   flex-shrink: 0;
   cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background 0.1s;
+}
+
+.checked input[type="checkbox"] {
+  background: var(--accent-mid);
 }

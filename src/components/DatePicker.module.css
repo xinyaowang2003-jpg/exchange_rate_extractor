@@ -1,59 +1,43 @@
+/* ─── DatePicker — five constrained scroll wheels ───────────────────────── */
+
 .group {
+  /* Floor width = 5 wheels × 62px + 4 gaps × 10px + sep ~10px = 360px */
   flex: 1;
-  min-width: 240px;
+  min-width: 340px;
   border: none;
   padding: 0;
   margin: 0;
 }
 
+@media (max-width: 480px) {
+  .group { min-width: 0; width: 100%; }
+}
+
 .groupLabel {
   display: block;
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.fieldLabel {
-  font-size: 0.72rem;
+  letter-spacing: 0.1em;
   color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin-bottom: var(--sp-3);   /* 12px — clear label from wheels */
 }
 
-.input {
-  font-family: 'IBM Plex Mono', 'Fira Code', monospace;
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  background: var(--bg-overlay);
-  border: 1px solid var(--border-dim);
-  border-radius: 4px;
-  padding: 8px 10px;
-  color-scheme: dark;
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  min-width: 140px;
+/* Five wheels in a row: YEAR · MON · DAY | HH · MM */
+.wheelRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);              /* 8px between each wheel */
+  flex-wrap: nowrap;
 }
 
-.input:hover {
-  border-color: var(--border-active);
-}
-
-.input:focus {
-  border-color: var(--accent-hi);
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+/* Thin vertical rule between the date wheels and time wheels */
+.sep {
+  width: 1px;
+  height: 80px;
+  background: var(--border-subtle);
+  flex-shrink: 0;
+  align-self: center;
+  margin: 0 var(--sp-1);
 }

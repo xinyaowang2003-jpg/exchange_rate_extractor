@@ -1,41 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* ─── Color tokens ───────────────────────────────────────────────────────── */
+/* ─── Apple HIG Light Mode · Exact Semantic Tokens ───────────────────────── */
 :root {
-  /* Backgrounds */
-  --bg-base:        #080b12;
-  --bg-surface:     #0d1520;
-  --bg-raised:      #111c2e;
-  --bg-overlay:     #0a1018;
+  /* System backgrounds — Apple HIG exact */
+  --bg-base:         #F5F5F7;   /* systemGroupedBackground */
+  --bg-surface:      #FFFFFF;   /* secondarySystemGroupedBackground */
+  --bg-raised:       #F2F2F7;   /* tertiarySystemGroupedBackground */
+  --bg-overlay:      #FFFFFF;
 
-  /* Borders */
-  --border-subtle:  #1a2840;
-  --border-dim:     #243550;
-  --border-active:  #38bdf8;
+  /* Separators — Apple HIG exact */
+  --border-subtle:   rgba(60, 60, 67, 0.12);   /* opaqueSeparator light */
+  --border-dim:      rgba(60, 60, 67, 0.20);
+  --border-active:   #007AFF;
 
-  /* Interactive accent — cyan-blue */
-  --accent-hi:      #38bdf8;
-  --accent-mid:     #0ea5e9;
-  --accent-lo:      #0369a1;
+  /* Interactive accent — iOS Blue */
+  --accent-hi:       #409CFF;
+  --accent-mid:      #007AFF;
+  --accent-lo:       #0062CC;
+  --accent-surface:  #EBF3FF;   /* 8% blue tint */
 
-  /* Emphasis accent — amber/gold (active/selected) */
-  --gold-hi:        #fbbf24;
-  --gold-mid:       #f59e0b;
-  --gold-surface:   #1c160a;
+  /* Semantic states */
+  --state-success:   #34C759;   /* Apple systemGreen */
+  --state-error:     #FF3B30;   /* Apple systemRed */
 
-  /* Text hierarchy */
-  --text-primary:   #e8f1fb;
-  --text-secondary: #7a9ab8;
-  --text-dim:       #4e6480;
-  --text-accent:    #38bdf8;
+  /* Aliases kept for module compatibility */
+  --gold-hi:         #007AFF;
+  --gold-mid:        #007AFF;
+  --gold-surface:    #EBF3FF;
+
+  /* Text — Apple HIG exact */
+  --text-primary:    #1D1D1F;   /* label */
+  --text-secondary:  #6E6E73;   /* secondaryLabel */
+  --text-dim:        #8E8E93;   /* tertiaryLabel */
+  --text-accent:     #007AFF;
+
+  /* Typography */
+  --font-mono:       "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Elevation */
+  --shadow-card:     0 1px 3px rgba(0, 0, 0, 0.07), 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-inset:    inset 0 1px 2px rgba(0, 0, 0, 0.06);
+
+  /* ── Spacing scale ─────────────────────────────────────────────────────── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-mono);
   background: var(--bg-base);
   color: var(--text-primary);
   min-height: 100vh;
-  padding: 24px 16px 48px;
+  padding: 40px 20px 72px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: tabular-nums;
 }

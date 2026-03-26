@@ -5,16 +5,17 @@ import styles from "./ScrollPicker.module.css";
  * A vertical scroll-snap picker for a list of integer values.
  *
  * Props:
- *   values   – number[]   ordered array of integers to display
- *   value    – number     currently selected value
- *   onChange – (v: number) => void
- *   label    – string     field label shown above
+ *   values       – number[]   ordered array of integers to display
+ *   value        – number     currently selected value
+ *   onChange     – (v: number) => void
+ *   label        – string     field label shown above
+ *   renderValue  – (v: number) => string   optional custom display text
  */
-export default function ScrollPicker({ values, value, onChange, label }) {
+export default function ScrollPicker({ values, value, onChange, label, renderValue }) {
   const containerRef = useRef(null);
   const ITEM_H = 40;
 
-  // Scroll to the selected item whenever `value` changes externally
+  // Scroll to selected item whenever `value` or `values` changes
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -35,27 +36,31 @@ export default function ScrollPicker({ values, value, onChange, label }) {
     }, 80);
   }, [values, onChange]);
 
+  const display = renderValue ?? ((v) => String(v));
+
   return (
     <div className={styles.wrapper}>
       <span className={styles.label}>{label}</span>
-      <div
-        className={styles.picker}
-        ref={containerRef}
-        onScroll={handleScroll}
-      >
-        {/* top padding so first item can center */}
-        <div className={styles.pad} />
-        {values.map((v) => (
-          <div
-            key={v}
-            className={`${styles.item} ${v === value ? styles.selected : ""}`}
-            onClick={() => onChange(v)}
-          >
-            {v}
-          </div>
-        ))}
-        {/* bottom padding */}
-        <div className={styles.pad} />
+      {/* pickerFrame holds the selection band + the scrollable drum */}
+      <div className={styles.pickerFrame}>
+        <div className={styles.selectionBand} aria-hidden="true" />
+        <div
+          className={styles.picker}
+          ref={containerRef}
+          onScroll={handleScroll}
+        >
+          <div className={styles.pad} />
+          {values.map((v) => (
+            <div
+              key={v}
+              className={`${styles.item} ${v === value ? styles.selected : ""}`}
+              onClick={() => onChange(v)}
+            >
+              {display(v)}
+            </div>
+          ))}
+          <div className={styles.pad} />
+        </div>
       </div>
     </div>
   );
