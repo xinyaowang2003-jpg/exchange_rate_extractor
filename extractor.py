@@ -6,7 +6,7 @@ Fetches 1-minute OHLCV candles for 24 USD pairs from Dukascopy (2021-01-01 to to
 import asyncio
 import csv
 import lzma
-import os
+import ssl
 import struct
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -72,7 +72,7 @@ def parse_bi5(data: bytes, instrument: str, dt: date) -> list[tuple]:
     for i in range(n):
         offset = i * RECORD_SIZE
         ms, o, c, lo, hi, vol = struct.unpack_from(RECORD_FMT, raw, offset)
-        ts = day_start + timedelta(milliseconds=ms)
+        ts = day_start + timedelta(seconds=ms)
         rows.append((
             ts.strftime("%Y-%m-%d %H:%M:%S"),
             round(o / point, decimals),
@@ -140,7 +140,10 @@ async def main():
     total = len(INSTRUMENTS) * len(days)
     done = 0
 
-    connector = aiohttp.TCPConnector(limit=MAX_CONCURRENT)
+    ssl_ctx = ssl.create_default_context()
+    ssl_ctx.check_hostname = False
+    ssl_ctx.verify_mode = ssl.CERT_NONE
+    connector = aiohttp.TCPConnector(limit=MAX_CONCURRENT, ssl=ssl_ctx)
     async with aiohttp.ClientSession(connector=connector) as session:
         # Build all tasks grouped in batches of MAX_CONCURRENT
         all_tasks = [

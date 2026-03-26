@@ -1,0 +1,74 @@
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.smallBtn {
+  padding: 0 14px;
+  min-height: 32px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-dim);
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.smallBtn:hover {
+  background: var(--accent-lo);
+  border-color: var(--accent-hi);
+}
+
+.smallBtn:focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 2px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 8px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: var(--accent-hi);
+  color: var(--text-primary);
+}
+
+.chip:focus-within {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 1px;
+}
+
+.checked {
+  border-color: var(--gold-mid);
+  background: var(--gold-surface);
+  color: var(--gold-hi);
+}
+
+.chip input[type="checkbox"] {
+  accent-color: var(--gold-mid);
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  cursor: pointer;
+}

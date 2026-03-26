@@ -1,0 +1,132 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-bottom: 28px;
+}
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 400px) {
+  .card { padding: 16px; }
+}
+
+.cardTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-accent);
+  margin-bottom: 16px;
+}
+
+.pairCount {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-dim);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.dateRow {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.estimate {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.validationError {
+  font-size: 0.82rem;
+  color: #f87171;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.downloadBtn {
+  padding: 11px 44px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  border: none;
+  background: linear-gradient(135deg, var(--accent-mid), var(--accent-lo));
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: box-shadow 0.2s, opacity 0.2s;
+}
+
+.downloadBtn:hover:not(:disabled) {
+  box-shadow: 0 0 0 1px var(--accent-hi);
+}
+
+.downloadBtn:focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 3px;
+}
+
+.downloadBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  padding: 11px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 4px;
+  border: 1px solid var(--border-dim);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.cancelBtn:hover {
+  border-color: #f87171;
+  color: #f87171;
+}
+
+.cancelBtn:focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 3px;
+}

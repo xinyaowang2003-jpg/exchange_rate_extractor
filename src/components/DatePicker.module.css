@@ -1,0 +1,59 @@
+.group {
+  flex: 1;
+  min-width: 240px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.groupLabel {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldLabel {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.input {
+  font-family: 'IBM Plex Mono', 'Fira Code', monospace;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  padding: 8px 10px;
+  color-scheme: dark;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  min-width: 140px;
+}
+
+.input:hover {
+  border-color: var(--border-active);
+}
+
+.input:focus {
+  border-color: var(--accent-hi);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+}

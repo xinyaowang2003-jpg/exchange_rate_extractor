@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Color tokens ───────────────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-base:        #080b12;
+  --bg-surface:     #0d1520;
+  --bg-raised:      #111c2e;
+  --bg-overlay:     #0a1018;
+
+  /* Borders */
+  --border-subtle:  #1a2840;
+  --border-dim:     #243550;
+  --border-active:  #38bdf8;
+
+  /* Interactive accent — cyan-blue */
+  --accent-hi:      #38bdf8;
+  --accent-mid:     #0ea5e9;
+  --accent-lo:      #0369a1;
+
+  /* Emphasis accent — amber/gold (active/selected) */
+  --gold-hi:        #fbbf24;
+  --gold-mid:       #f59e0b;
+  --gold-surface:   #1c160a;
+
+  /* Text hierarchy */
+  --text-primary:   #e8f1fb;
+  --text-secondary: #7a9ab8;
+  --text-dim:       #4e6480;
+  --text-accent:    #38bdf8;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: 24px 16px 48px;
+}
